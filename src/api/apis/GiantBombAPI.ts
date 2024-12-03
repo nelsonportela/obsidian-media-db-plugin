@@ -92,6 +92,7 @@ export class GiantBombAPI extends APIModel {
 			id: result.guid,
 			developers: result.developers?.map((x: any) => x.name) ?? [],
 			publishers: result.publishers?.map((x: any) => x.name) ?? [],
+			platforms: result.platforms?.map((x: any) => x.name) ?? [],
 			genres: result.genres?.map((x: any) => x.name) ?? [],
 			onlineRating: 0,
 			image: result.image?.super_url ?? '',
