@@ -27,6 +27,7 @@ export class GameModel extends MediaTypeModel {
 		this.image = undefined;
 		this.released = undefined;
 		this.releaseDate = undefined;
+		this.platforms = undefined;
 		this.userData = {
 			played: undefined,
 			personalRating: undefined,
