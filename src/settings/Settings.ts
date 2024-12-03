@@ -13,6 +13,7 @@ export interface MediaDbPluginSettings {
 	OMDbKey: string;
 	MobyGamesKey: string;
 	GiantBombKey: string;
+	ComicVineKey: string;
 	sfwFilter: boolean;
 	templates: boolean;
 	customDateFormat: string;
@@ -79,6 +80,7 @@ const DEFAULT_SETTINGS: MediaDbPluginSettings = {
 	OMDbKey: '',
 	MobyGamesKey: '',
 	GiantBombKey: '',
+	ComicVineKey: '',
 	sfwFilter: true,
 	templates: true,
 	customDateFormat: 'L',
@@ -212,6 +214,18 @@ export class MediaDbSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.GiantBombKey)
 					.onChange(data => {
 						this.plugin.settings.GiantBombKey = data;
+						void this.plugin.saveSettings();
+					});
+			});
+
+			new Setting(containerEl)
+			.setName('Comic Vine Key')
+			.setDesc('API key for "comicvine.gamespot.com".')
+			.addText(cb => {
+				cb.setPlaceholder('API key')
+					.setValue(this.plugin.settings.ComicVineKey)
+					.onChange(data => {
+						this.plugin.settings.ComicVineKey = data;
 						void this.plugin.saveSettings();
 					});
 			});
