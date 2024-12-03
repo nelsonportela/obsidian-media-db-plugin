@@ -22,6 +22,7 @@ export class ComicModel extends MediaTypeModel {
 		this.publisher = undefined;
         this.issues = undefined;
 		this.released = undefined;
+		this.image = undefined;
 		this.userData = {
 			read: undefined,
 			personalRating: undefined,
