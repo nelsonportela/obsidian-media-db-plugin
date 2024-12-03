@@ -6,6 +6,7 @@ export class GameModel extends MediaTypeModel {
 	developers: string[];
 	publishers: string[];
 	genres: string[];
+	platforms: string[];
 	onlineRating: number;
 	image: string;
 
