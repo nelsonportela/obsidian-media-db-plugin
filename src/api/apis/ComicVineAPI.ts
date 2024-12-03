@@ -81,15 +81,32 @@ export class ComicVineAPI extends APIModel {
 		// console.debug(data);
 		const result = data.results;
 
+		const searchIssueUrl = `${this.apiUrl}/issue/4000-${encodeURIComponent(result.first_issue.id)}/?api_key=${this.plugin.settings.ComicVineKey}&format=json`;
+		const fetchIssueData = await requestUrl({
+			url: searchIssueUrl,
+		});
+		console.debug(fetchIssueData);
+
+		if (fetchIssueData.status !== 200) {
+			throw Error(`MDB | Received status code ${fetchIssueData.status} from ${this.apiName}.`);
+		}
+
+		const issueData = await fetchIssueData.json;
+		// console.debug(data);
+		const issueResult = issueData.results;
+
 		return new ComicModel({
 			type: MediaType.Comic,
 			title: result.name,
 			year: new Date(result.start_year).getFullYear().toString(),
 			dataSource: this.apiName,
+			description: issueResult.description,
 			url: result.site_detail_url,
 			id: `4050-${result.id}`,
 			issues: result.issues?.map((x: any) => x.issue_number) ?? [],
+			publisher: result.publisher?.map((x: any) => x.name) ?? [],
 			released: true,
+			image: issueResult.image?.super_url ?? '',
 
 			userData: {
 				read: false,

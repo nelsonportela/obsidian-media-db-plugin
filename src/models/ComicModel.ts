@@ -3,8 +3,9 @@ import { mediaDbTag, migrateObject } from '../utils/Utils';
 import { MediaType } from '../utils/MediaType';
 
 export class ComicModel extends MediaTypeModel {
-	publishers: string[];
+	publisher: string[];
 	issues: string[];
+	description: string;
 	image: string;
 
 	released: boolean;
@@ -18,7 +19,7 @@ export class ComicModel extends MediaTypeModel {
 	constructor(obj: any = {}) {
 		super();
 
-		this.publishers = undefined;
+		this.publisher = undefined;
         this.issues = undefined;
 		this.released = undefined;
 		this.userData = {
