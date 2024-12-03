@@ -85,21 +85,16 @@ export class ComicVineAPI extends APIModel {
 		return new ComicModel({
 			type: MediaType.Comic,
 			title: result.name,
-			englishTitle: result.name,
 			year: new Date(result.start_year).getFullYear().toString(),
 			dataSource: this.apiName,
 			url: result.site_detail_url,
 			id: result.id,
 			issues: result.issues?.map((x: any) => x.issue_number) ?? [],
-			publishers: result.publisher?.map((x: any) => x.name) ?? [],
-			image: result.image?.super_url ?? '',
-
+			publishers: result.publisher.name,
 			released: true,
-			releaseDate: result.original_release_date ?? 'unknown',
 
 			userData: {
 				read: false,
-
 				personalRating: 0,
 			},
 		} as ComicModel);
