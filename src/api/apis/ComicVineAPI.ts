@@ -89,7 +89,6 @@ export class ComicVineAPI extends APIModel {
 			url: result.site_detail_url,
 			id: `4050-${result.id}`,
 			issues: result.issues?.map((x: any) => x.issue_number) ?? [],
-			publishers: result.publisher?.map((x: any) => x.name) ?? [],
 			released: true,
 
 			userData: {
