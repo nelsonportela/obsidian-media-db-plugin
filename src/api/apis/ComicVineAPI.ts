@@ -50,7 +50,6 @@ export class ComicVineAPI extends APIModel {
 				new ComicModel({
 					type: MediaType.Comic,
 					title: result.name,
-					englishTitle: result.name,
 					year: new Date(result.start_year).getFullYear().toString(),
 					dataSource: this.apiName,
 					id: result.id,
@@ -68,7 +67,7 @@ export class ComicVineAPI extends APIModel {
 			throw Error(`MDB | API key for ${this.apiName} missing.`);
 		}
 
-		const searchUrl = `${this.apiUrl}/volume/${encodeURIComponent(id)}/?api_key=${this.plugin.settings.ComicVineKey}&format=json`;
+		const searchUrl = `${this.apiUrl}/volume/4050-${encodeURIComponent(id)}/?api_key=${this.plugin.settings.ComicVineKey}&format=json`;
 		const fetchData = await requestUrl({
 			url: searchUrl,
 		});
@@ -88,7 +87,7 @@ export class ComicVineAPI extends APIModel {
 			year: new Date(result.start_year).getFullYear().toString(),
 			dataSource: this.apiName,
 			url: result.site_detail_url,
-			id: result.id,
+			id: `4050-${result.id}`,
 			issues: result.issues?.map((x: any) => x.issue_number) ?? [],
 			publishers: result.publisher.name,
 			released: true,

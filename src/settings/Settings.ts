@@ -438,7 +438,7 @@ export class MediaDbSettingTab extends PluginSettingTab {
 			});
 
 		new Setting(containerEl)
-			.setName('COmic folder')
+			.setName('Comic folder')
 			.setDesc('Where newly imported comics should be placed.')
 			.addSearch(cb => {
 				new FolderSuggest(this.app, cb.inputEl);
