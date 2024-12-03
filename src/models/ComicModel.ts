@@ -3,7 +3,6 @@ import { mediaDbTag, migrateObject } from '../utils/Utils';
 import { MediaType } from '../utils/MediaType';
 
 export class ComicModel extends MediaTypeModel {
-	developers: string[];
 	publishers: string[];
 	issues: string[];
 	image: string;
@@ -19,7 +18,6 @@ export class ComicModel extends MediaTypeModel {
 	constructor(obj: any = {}) {
 		super();
 
-		this.developers = undefined;
 		this.publishers = undefined;
         this.issues = undefined;
 		this.image = undefined;

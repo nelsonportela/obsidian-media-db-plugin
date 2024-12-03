@@ -98,7 +98,7 @@ export class ComicVineAPI extends APIModel {
 			releaseDate: result.original_release_date ?? 'unknown',
 
 			userData: {
-				played: false,
+				read: false,
 
 				personalRating: 0,
 			},
