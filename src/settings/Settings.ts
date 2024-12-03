@@ -41,6 +41,7 @@ export interface MediaDbPluginSettings {
 	seriesTemplate: string;
 	mangaTemplate: string;
 	gameTemplate: string;
+	comicTemplate: string;
 	wikiTemplate: string;
 	musicReleaseTemplate: string;
 	boardgameTemplate: string;
@@ -50,6 +51,7 @@ export interface MediaDbPluginSettings {
 	seriesFileNameTemplate: string;
 	mangaFileNameTemplate: string;
 	gameFileNameTemplate: string;
+	comicFileNameTemplate: string;
 	wikiFileNameTemplate: string;
 	musicReleaseFileNameTemplate: string;
 	boardgameFileNameTemplate: string;
@@ -59,6 +61,7 @@ export interface MediaDbPluginSettings {
 	seriesPropertyConversionRules: string;
 	mangaPropertyConversionRules: string;
 	gamePropertyConversionRules: string;
+	comicPropertyConversionRules: string;
 	wikiPropertyConversionRules: string;
 	musicReleasePropertyConversionRules: string;
 	boardgamePropertyConversionRules: string;
@@ -68,6 +71,7 @@ export interface MediaDbPluginSettings {
 	seriesFolder: string;
 	mangaFolder: string;
 	gameFolder: string;
+	comicFolder: string;
 	wikiFolder: string;
 	musicReleaseFolder: string;
 	boardgameFolder: string;
@@ -103,11 +107,13 @@ const DEFAULT_SETTINGS: MediaDbPluginSettings = {
 		MobyGamesAPI: {
 			game: true,
 		},
+
 	},
 	movieTemplate: '',
 	seriesTemplate: '',
 	mangaTemplate: '',
 	gameTemplate: '',
+	comicTemplate: '',
 	wikiTemplate: '',
 	musicReleaseTemplate: '',
 	boardgameTemplate: '',
@@ -117,6 +123,7 @@ const DEFAULT_SETTINGS: MediaDbPluginSettings = {
 	seriesFileNameTemplate: '{{ title }} ({{ year }})',
 	mangaFileNameTemplate: '{{ title }} ({{ year }})',
 	gameFileNameTemplate: '{{ title }} ({{ year }})',
+	comicFileNameTemplate: '{{ title }} ({{ year }})',
 	wikiFileNameTemplate: '{{ title }}',
 	musicReleaseFileNameTemplate: '{{ title }} (by {{ ENUM:artists }} - {{ year }})',
 	boardgameFileNameTemplate: '{{ title }} ({{ year }})',
@@ -126,6 +133,7 @@ const DEFAULT_SETTINGS: MediaDbPluginSettings = {
 	seriesPropertyConversionRules: '',
 	mangaPropertyConversionRules: '',
 	gamePropertyConversionRules: '',
+	comicPropertyConversionRules: '',
 	wikiPropertyConversionRules: '',
 	musicReleasePropertyConversionRules: '',
 	boardgamePropertyConversionRules: '',
@@ -135,6 +143,7 @@ const DEFAULT_SETTINGS: MediaDbPluginSettings = {
 	seriesFolder: 'Media DB/series',
 	mangaFolder: 'Media DB/manga',
 	gameFolder: 'Media DB/games',
+	comicFolder: 'Media DB/comics',
 	wikiFolder: 'Media DB/wiki',
 	musicReleaseFolder: 'Media DB/music',
 	boardgameFolder: 'Media DB/boardgames',
@@ -429,6 +438,19 @@ export class MediaDbSettingTab extends PluginSettingTab {
 			});
 
 		new Setting(containerEl)
+			.setName('COmic folder')
+			.setDesc('Where newly imported comics should be placed.')
+			.addSearch(cb => {
+				new FolderSuggest(this.app, cb.inputEl);
+				cb.setPlaceholder(DEFAULT_SETTINGS.comicFolder)
+					.setValue(this.plugin.settings.comicFolder)
+					.onChange(data => {
+						this.plugin.settings.comicFolder = data;
+						void this.plugin.saveSettings();
+					});
+			});
+
+		new Setting(containerEl)
 			.setName('Wiki folder')
 			.setDesc('Where newly imported wiki articles should be placed.')
 			.addSearch(cb => {
@@ -535,6 +557,19 @@ export class MediaDbSettingTab extends PluginSettingTab {
 			});
 
 		new Setting(containerEl)
+			.setName('Comic template')
+			.setDesc('Template file to be used when creating a new note for a comic.')
+			.addSearch(cb => {
+				new FileSuggest(this.app, cb.inputEl);
+				cb.setPlaceholder('Example: comicTemplate.md')
+					.setValue(this.plugin.settings.comicTemplate)
+					.onChange(data => {
+						this.plugin.settings.comicTemplate = data;
+						void this.plugin.saveSettings();
+					});
+			});
+
+		new Setting(containerEl)
 			.setName('Wiki template')
 			.setDesc('Template file to be used when creating a new note for a wiki entry.')
 			.addSearch(cb => {
@@ -633,6 +668,18 @@ export class MediaDbSettingTab extends PluginSettingTab {
 					.setValue(this.plugin.settings.gameFileNameTemplate)
 					.onChange(data => {
 						this.plugin.settings.gameFileNameTemplate = data;
+						void this.plugin.saveSettings();
+					});
+			});
+
+		new Setting(containerEl)
+			.setName('Comic file name template')
+			.setDesc('Template for the file name used when creating a new note for a comic.')
+			.addText(cb => {
+				cb.setPlaceholder(`Example: ${DEFAULT_SETTINGS.comicFileNameTemplate}`)
+					.setValue(this.plugin.settings.comicFileNameTemplate)
+					.onChange(data => {
+						this.plugin.settings.comicFileNameTemplate = data;
 						void this.plugin.saveSettings();
 					});
 			});
